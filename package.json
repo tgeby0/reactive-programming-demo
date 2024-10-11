@@ -1,0 +1,27 @@
+{
+  "name": "reactive-programming-demo",
+  "version": "1.0.0",
+  "description": "Tutorial for reactive programming using RxJS for CSCI 435 at W&M",
+  "main": "index.js",
+  "scripts": {
+    "build": "npx tsc",
+    "start": "node dist/index.js",
+    "dev": "nodemon index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/a-batts/reactive-programming-demo.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/a-batts/reactive-programming-demo/issues"
+  },
+  "homepage": "https://github.com/a-batts/reactive-programming-demo#readme",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.3"
+  }
+}
