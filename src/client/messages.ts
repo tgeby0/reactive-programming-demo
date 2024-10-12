@@ -36,3 +36,9 @@ export const sendMessage = async (message: Message): Promise<void> => {
 
     // TODO: notify websocket of message
 }
+
+// Handle a message received from the Websocket
+export const onMessage = async (messageText: string): Promise<void> => {
+    const current = messages.getValue();
+    messages.next([...current, {data: messageText, action: "received", timestamp: new Date()}])
+}
