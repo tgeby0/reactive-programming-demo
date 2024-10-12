@@ -5,9 +5,9 @@
   "description": "Tutorial for reactive programming using RxJS for CSCI 435 at W&M",
   "main": "index.js",
   "scripts": {
-    "dev": "tsc && concurrently \"tsc -w\" \"nodemon dist/index.js\" \"cp public dist/public -r\"",
+    "dev": "concurrently \"nodemon -w src/server -x tsx src/server/main.ts\" \"tsc -w --noEmit\" \"esbuild --watch src/client/main.ts --bundle --outfile=./dist/assets/index.js\"",
     "start": "NODE_ENV=production tsx src/server/main.ts",
-    "build": "vite build"
+    "build": "esbuild src/client/main.ts --bundle --outfile=./dist/assets/index.js"
   },
   "repository": {
     "type": "git",

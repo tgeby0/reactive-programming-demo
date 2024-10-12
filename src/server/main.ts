@@ -22,15 +22,19 @@ const io = new Server<ClientToServerEvents, ServerToClientEvents>(server);
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-
 app.get('/', (req, res) => {
     res.sendFile(join(process.cwd(), 'index.html'));
 });
 
-ViteExpress.listen(app, 3006, () => {
+app.use(express.static(join(__dirname, '../../dist')));
+
+server.listen(3006, () => {
     console.log('Server is running on http://localhost:3006/');
 });
 
 io.on('connection', (socket) => {
-    console.log('a user connected');
+    socket.on('message', (message) => {
+        console.log('Received message:', message);
+        io.emit('message', message);
+    });
 });
