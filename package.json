@@ -5,7 +5,7 @@
   "description": "Tutorial for reactive programming using RxJS for CSCI 435 at W&M",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon -w src/server -x tsx src/server/main.ts",
+    "dev": "tsc && concurrently \"tsc -w\" \"nodemon dist/index.js\" \"cp public dist/public -r\"",
     "start": "NODE_ENV=production tsx src/server/main.ts",
     "build": "vite build"
   },
@@ -34,6 +34,7 @@
     "concurrently": "^9.0.1",
     "nodemon": "^3.1.7",
     "ts-node": "^10.9.2",
-    "vite": "^5.4.8"
+    "vite": "^5.4.8",
+    "vite-plugin-socket-io": "^1.0.2"
   }
 }

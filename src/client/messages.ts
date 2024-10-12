@@ -1,4 +1,5 @@
 import {BehaviorSubject} from "rxjs";
+import { serverMessages$ } from "./connection";
 
 // Interface defining a message data type
 interface Message {

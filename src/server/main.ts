@@ -8,7 +8,16 @@ import {createServer} from 'node:http';
 
 const app = express();
 const server = createServer(app);
-const io = new Server(server);
+
+type ClientToServerEvents = {
+    message: (message: string) => void;
+};
+
+type ServerToClientEvents = {
+    message: (message: string) => void;
+};
+
+const io = new Server<ClientToServerEvents, ServerToClientEvents>(server);
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
