@@ -1,13 +1,12 @@
 import express from 'express';
 import { createServer } from 'node:http';
-import { fileURLToPath } from 'node:url';
-import { dirname, join } from 'node:path';
+import { join } from 'node:path';
 
 const app = express();
 const server = createServer(app);
 
 app.get('/', (req, res) => {
-  res.sendFile(join(__dirname, '..', 'index.html'));
+  res.sendFile(join(process.cwd(), 'index.html'));
 });
 
 server.listen(3000, () => {
