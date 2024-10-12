@@ -8,6 +8,7 @@ document.getElementById("form")!.onsubmit = async (e) => {
     const messageInput: HTMLInputElement = ((e.currentTarget as HTMLFormElement).querySelector('input[name="message"]')!);
     const message = messageInput.value;
 
+
     // Send the message
     await sendMessage({data: message, action: "sent", timestamp: new Date()});
 

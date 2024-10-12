@@ -1,10 +1,10 @@
 import express from 'express';
-import { join } from 'node:path';
+import {join} from 'node:path';
 import ViteExpress from "vite-express";
-import { fileURLToPath } from 'url';
+import {fileURLToPath} from 'url';
 import path from 'path';
-import { Server } from 'socket.io';
-import { createServer } from 'node:http';
+import {Server} from 'socket.io';
+import {createServer} from 'node:http';
 
 const app = express();
 const server = createServer(app);
@@ -19,7 +19,7 @@ app.get('/', (req, res) => {
 });
 
 ViteExpress.listen(app, 3006, () => {
-    console.log('Server is running on http://localhost:3000/');
+    console.log('Server is running on http://localhost:3006/');
 });
 
 io.on('connection', (socket) => {

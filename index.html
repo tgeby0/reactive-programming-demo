@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>Socket.IO chat</title>
@@ -13,13 +13,18 @@
 
       #messages { list-style-type: none; margin: 0; padding: 0; }
       #messages > li { padding: 0.5rem 1rem; }
-      #messages > li:nth-child(odd) { background: #efefef; }
+      #messages > li.received { background: #efefef; }
+      #messages .message-text {}
+      #messages .message-date { font-size: 12px; color: gray; }
     </style>
   </head>
   <body>
     <ul id="messages"></ul>
     <form id="form">
-      <input name="message" autocomplete="off" /><button>Send</button>
+      <label>
+        <input name="message" autocomplete="off" />
+      </label>
+      <button>Send</button>
     </form>
     <script type="module" src="/src/client/main.ts"></script>
   </body>
