@@ -5,6 +5,8 @@ import { join } from 'node:path';
 const app = express();
 const server = createServer(app);
 
+app.use(express.static("dist"));
+
 app.get('/', (req, res) => {
   res.sendFile(join(process.cwd(), 'index.html'));
 });
