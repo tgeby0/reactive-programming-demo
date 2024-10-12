@@ -1,12 +1,13 @@
 {
   "name": "reactive-programming-demo",
+  "type": "module",
   "version": "1.0.0",
   "description": "Tutorial for reactive programming using RxJS for CSCI 435 at W&M",
   "main": "index.js",
   "scripts": {
     "build": "npx tsc",
     "start": "node dist/index.js",
-    "dev": "tsc && concurrently \"tsc -w\" \"nodemon dist/index.js\""
+    "dev": "tsc && concurrently \"tsc -w\" \"nodemon dist/index.js\" \"cp public dist/public -r\""
   },
   "repository": {
     "type": "git",
@@ -22,6 +23,7 @@
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
     "socket.io": "^4.8.0",
+    "socket.io-client": "^4.8.0",
     "typescript": "^5.6.3"
   },
   "devDependencies": {
