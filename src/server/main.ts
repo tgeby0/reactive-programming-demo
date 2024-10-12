@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
     res.sendFile(join(process.cwd(), 'index.html'));
 });
 
-ViteExpress.listen(app, 3000, () => {
+ViteExpress.listen(app, 3006, () => {
     console.log('Server is running on http://localhost:3000/');
 });
 
