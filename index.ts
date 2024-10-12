@@ -7,7 +7,7 @@ const app = express();
 const server = createServer(app);
 
 app.get('/', (req, res) => {
-  res.sendFile(join(__dirname, 'index.html'));
+  res.sendFile(join(__dirname, '..', 'index.html'));
 });
 
 server.listen(3000, () => {
