@@ -35,6 +35,6 @@ server.listen(3006, () => {
 io.on('connection', (socket) => {
     socket.on('message', (message) => {
         console.log('Received message:', message);
-        io.emit('message', message);
+        socket.broadcast.emit('message', message);
     });
 });

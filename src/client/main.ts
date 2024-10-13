@@ -1,8 +1,6 @@
 import { fromEvent, map, tap, merge, shareReplay, Subject, connectable } from "rxjs";
 import { serverMessages$, sendMessage, socket } from "./connection";
 
-let mySocket = socket;
-
 const form = document.getElementById("form")!;
 
 const userMessages$ = fromEvent<FormDataEvent>(form, 'submit').pipe(
@@ -26,7 +24,7 @@ userMessages$.subscribe(message => {
     sendMessage(message);
 });
 
-userMessages$.subscribe(message => {
+messages$.subscribe(message => {
     console.log("message", message)
     const newMessage = document.createElement("li");
     newMessage.innerHTML = `
