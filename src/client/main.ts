@@ -11,11 +11,11 @@ const userMessages$ = fromEvent<FormDataEvent>(form, 'submit').pipe(
         messageInput.value = "";
         return message;
     }),
+    map((message: string): Message => {
+        return {data: message, action: "sent", timestamp: new Date()};
+    }),
     shareReplay()
 );
-
-// const userMessages$ = connectable(formSubmit$, { connector: () => new Subject() });
-// userMessages$.connect();
 
 const messages$ = merge(userMessages$, serverMessages$);
 
@@ -29,10 +29,10 @@ messages$.subscribe(message => {
     const newMessage = document.createElement("li");
     newMessage.innerHTML = `
         <div>
-            <p class="message-text">${message}</p>
-            <p class="message-date">sent ${new Date().toLocaleString()}</p>
+            <p class="message-text">${message.data}</p>
+            <p class="message-date">${message.action} ${new Date(message.timestamp).toLocaleString()}</p>
         </div>
     `;
-    //newMessage.classList.add("sent");
+    newMessage.classList.add(message.action);
     document.getElementById("messages")!.appendChild(newMessage);
 });

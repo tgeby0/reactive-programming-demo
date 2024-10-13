@@ -1,4 +1,5 @@
 type Message = {
-    message: string;
-    sender: string;
-}
+    data: string;
+    timestamp: Date;
+    action: "sent" | "received";
+};

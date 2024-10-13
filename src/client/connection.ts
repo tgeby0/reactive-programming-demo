@@ -7,13 +7,14 @@ socket.on('connect', () => {
     console.log('Connected to server');
 });
 
-export const serverMessages$ = new Subject<string>();
+export const serverMessages$ = new Subject<Message>();
 
 socket.on('message', (message) => {
-    console.log('Received message:', message);  
-    serverMessages$.next(message as string);
+    console.log('Received message:', message);
+    message.action = "received";  
+    serverMessages$.next(message as Message);
 });
 
-export const sendMessage = (message: string) => {
+export const sendMessage = (message: Message) => {
     socket.emit('message', message);
 };
