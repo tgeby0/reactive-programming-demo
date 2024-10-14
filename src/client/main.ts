@@ -1,5 +1,5 @@
-import { fromEvent, map, tap, merge, shareReplay, Subject, connectable } from "rxjs";
-import { serverMessages$, sendMessage, socket } from "./connection";
+import {fromEvent, map, tap, merge, shareReplay} from "rxjs";
+import {serverMessages$, sendMessage} from "./connection";
 
 const form = document.getElementById("form")!;
 

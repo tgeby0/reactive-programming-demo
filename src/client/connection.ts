@@ -1,4 +1,4 @@
-import { Observable, Subject, share } from 'rxjs';
+import {Subject} from 'rxjs';
 import {io} from 'socket.io-client';
 
 export const socket = io();
@@ -11,7 +11,7 @@ export const serverMessages$ = new Subject<Message>();
 
 socket.on('message', (message) => {
     console.log('Received message:', message);
-    message.action = "received";  
+    message.action = "received";
     serverMessages$.next(message as Message);
 });
 

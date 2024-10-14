@@ -1,6 +1,5 @@
 import express from 'express';
 import {join} from 'node:path';
-import ViteExpress from "vite-express";
 import {fileURLToPath} from 'url';
 import path from 'path';
 import {Server} from 'socket.io';
