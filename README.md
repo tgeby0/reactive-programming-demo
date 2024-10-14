@@ -287,6 +287,9 @@ subscriptions are working.
 
 Is the second log blank? Based on what you know about how subscriptions work (see top of section)
 
+> ! hello
+> ! test
+
 Reload your browser, and open the site in a second tab. You'll notice that, if you write a message in one,
 it still does not appear in the other. That is because we need to actually handle messages the Websocket receives.
 
