@@ -128,7 +128,7 @@ myObservable$.pipe(
 Run the app with `npm run dev`. First, if you click the submit button, notice it causes a navigation to the page. This
 is the *default* behavior, which will be unhelpful for sending and receiving messages.
 
-Our first operator, `tap(handler: e: Event => void)`, is used to perform a side effect without modifying the data—in
+Our first operator, `tap(handler: (e: Event) => void)`, is used to perform a side effect without modifying the data—in
 this
 case we use it to prevent
 the
@@ -138,16 +138,11 @@ default behavior.
 Try using `tap(x => console.log(x))` for debugging purposes. As you work, check the browser console (<kbd>
 CTRL</kbd>+<kbd>Shift</kbd>+<kbd>I</kbd> in most browsers, find the Console tab).
 
-Now, we want to transform this form event into a useful format. The most common operator in ReactiveX is `map`,used for
+Now, we want to transform this form event into a useful format. The most common operator in ReactiveX is `map`, used for
 this purpose. It takes a function that transforms data from one type to another.
 
 ```typescript
-map(x
-:
-XType => y
-:
-YType
-)
+map(handler: (x: XType) => y: YType)
 ```
 
 The only information we need from this form is the string value
@@ -175,14 +170,6 @@ map((message: string): Message => {
 This takes the previous message string and stores it in a new message object that also contains
 whether the message was sent or received, and when it was sent.
 This will be useful later when displaying messages in the browser.
-
-@JACKSON: MOVE THIS BELOW!!!
-
-Finally, we want to add one last action to the pipe:
-
-```typescript 
-shareReplay() 
-```
 
 ### Display messages in the browser (like & subscribe!)
 
@@ -285,10 +272,19 @@ This ensures that whenever a new message is added to userMessages, it will immed
 Throw in a `console.log(message)` to this second subscription. Now, **check the console logs** to see if both
 subscriptions are working.
 
-Is the second log blank? Based on what you know about how subscriptions work (see top of section)
+Is the second log blank? Based on what you know about how subscriptions work (see top of section), think about what might be going on.
 
-> ! hello
-> ! test
+<details>
+  <summary>Expand for the solution!</summary>
+
+  > The problem is that each subscriber is **creating a new listener**, which clears the input each time a value is submitted. Thus, the second subscriber gets an empty string when it tries to access the input's value!
+  >
+  > Many times, we want this behavior. However, in this case we want the subscribers to share the data that comes through the pipeline and only run the side effects once.
+  >
+  > Thankfully, RxJS provides an operator for that, `shareReplay()` (no arguments). Add that to the end of the pipe to share the data between subscribers. Just like Zendaya, let's put this song on replay!
+</details>
+
+<br/>
 
 Reload your browser, and open the site in a second tab. You'll notice that, if you write a message in one,
 it still does not appear in the other. That is because we need to actually handle messages the Websocket receives.
@@ -305,17 +301,17 @@ socket.on('message', (message) => {
 `socket.on('message', (message) => {...})` waits until the Websocket is sent a new message and then performs an action.
 Currently, we just log it to the console, and set its action as "received".
 
-There isn't a neat wrapper for a Socket.IO handler in an RxJS observable.
+There isn't a neat wrapper for a Socket.IO handler in an RxJS observable, so we'll have to add the data to an observable ourselves.
 
-We'll need something to actually store these messages—a Subject.
-A Subject is a special type of Observable. Basic observables create their own data source, but Subjects can receive data
-from an external data source. It's a subscription and an observable all in one!
+The problem is-- we can't wait until someone subscribes to our observable to create this Socket.IO handler. We need to create it synchronously right away. 
+
+A Subject is a special type of Observable. Basic observables create their own connection to a data source, but we can send data to subjects from outside. This makes it perfect for receiving data from the Socket.IO handler. It's a subscription and an observable all in one!
 
 ```typescript
 export const serverMessages$ = new Subject<Message>();
 ```
 
-To add a new item to the Subject and trigger anything Observing it, RxJS provides the `next` function.
+To send a new data to the Subject and its subscribers, RxJS provides the `next` function.
 
 Add a line to the `socket.on('message')` handler calling it:
 
@@ -326,6 +322,8 @@ socket.on('message', (message) => {
     serverMessages$.next(message as Message);
 });
 ```
+
+Notice how this transforms the message to show that it was received from an external user (on another tab)!
 
 However, this still isn't enough to display these messages on screen -
 we'll need to add some more code to `client/main.ts`.
@@ -345,7 +343,7 @@ You'll need to import `serverMessages$` from `connection.ts`:
 import {serverMessages$, sendMessage} from "./connection";
 ```
 
-Finally, change the `userMessages$.subscribe` function to instead subscribe to messages$ -
+Finally, change the `userMessages$.subscribe` function to instead subscribe to `messages$` -
 we want to update the UI as soon as **either** a message is sent or received.
 
 ```typescript
