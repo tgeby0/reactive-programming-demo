@@ -4,6 +4,8 @@ In this tutorial, we are going to build a basic messaging webapp utilizing Javas
 reactive programming library [rxjs](https://github.com/ReactiveX/rxjs),
 websockets using Socket.IO and asynchronous programming.
 
+In the final app, users will be able to see their own messages and messages sent by others. In this basic version, only the message's text, its timestamp, and whether it was sent or received will be visible. The focus of the demo is incorporating reactive programming paradigms into a working chat app.
+
 ### Pre-requisites:
 
 To run this tutorial, you will first need to install [Node.js](https://nodejs.org/en).
@@ -19,6 +21,16 @@ You should now be able to view a basic webpage in your browser at http://localho
 If you are able to see a mostly blank page with a text box and a "Send" button at the bottom,
 everything is working as expected!
 
+Just a heads-up, this demo has a back-end (Node JS) and a front-end both written in [**TypeScript**](https://www.typescriptlang.org/), which is a superset of JavaScript with static type checking. If you've never worked with JavaScript or TypeScript, no worries! We'll provide you some syntax hints. You'll be surprised at how much you're able to pick up.
+
+#### Tech Stack
+
+* **Express.JS** - the web server app that serves the HTML page to the browser
+* **Socket.IO** - an abstraction over the standard web sockets, a real-time connection between a browser and a server application
+* **tsc** (TypeScript compiler/transpiler) - converts strongly typed TypeScript code into JavaScript that can run on the server or in the browser
+* **esbuild** - bundles 
+* ***RxJS*** - part of the ReactiveX series of reactive programming libraries in a variety of languages. This incorporates the reactive programming paradigm to your JavaScript code.
+
 ### Getting started:
 
 There are a few files already created for you:
@@ -31,7 +43,7 @@ There are a few files already created for you:
   point for the functionality that we are going to be built out.
   Interactive and reactive functions will be placed here in the future.
 
-There are a few other files; however, they aren't relevant to this tutorial.
+There are a few other files related to some of the technologies mentioned above; however, we won't ask you to modify them for this tutorial. Feel free to look into them to learn how these libraries work together.
 
 ### Handle a message being sent:
 
