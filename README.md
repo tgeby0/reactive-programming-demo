@@ -109,20 +109,25 @@ called [`fromEvent`](https://rxjs.dev/api/index/function/fromEvent);
 Add this code below the previous line:
 
 ```typescript
-const userMessages$ = fromEvent<FormDataEvent>(form, 'submit');
+const submitEvents$ = fromEvent<FormDataEvent>(form, 'submit');
 ```
 
 `fromEvent` uses reactive programming to build an array of items from a series of events. Each time a specified event is
 triggered (in this case a `FormDataEvent` on `form`), an event object is pushed to the collection.
 
 Now, we'll use the `pipe` method on Observable to create our data pipeline. This allows us to
-add [RxJS operators](https://rxjs.dev/guide/operators) to do our data transformations.
+add [RxJS operators](https://rxjs.dev/guide/operators) to do our data transformations and create a  new observable.
 
 ```typescript
 myObservable$.pipe(
     operator1(...),
-    operator2(...)
+    operator2(...),
+    ...
 )
+```
+
+```typescript
+const userMessages$ = $submitEvents.pipe(...)
 ```
 
 Run the app with `npm run dev`. First, if you click the submit button, notice it causes a navigation to the page. This
